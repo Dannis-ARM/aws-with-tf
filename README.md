@@ -1,5 +1,13 @@
-# aws-with-tf
-aws-with-tf
+# Project Description
+This is project aws-with-tf
+
+# Pre-requista
+:Install Aws Cli
+set HTTPS_PROXY=http://localhost:7890
+msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi /qn
+
+Install Terraform
+Find 386 version from https://developer.hashicorp.com/terraform/install
 
 # Deployment Guide 
 

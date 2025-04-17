@@ -1,13 +1,16 @@
 module "vpc" {
   source = "./modules/vpc"
-  cidr_block = var.vpc_cidr_block
+  vpc_cidr = var.vpc_cidr
+  vpc_pub_sub_cidr = var.vpc_pub_sub_cidr
 }
 
 module "ec2" {
   source = "./modules/ec2"
   vpc_id = module.vpc.vpc_id
-  subnet_id = module.vpc.subnet_id1
+  subnet_id = module.vpc.public_subnet_id
   ec2_ami = var.ec2_ami
+  vpc_ssh_sg_id = module.vpc.vpc_ssh_sg_id
+  # subnet_id = module.vpc.private_subnet_id
 }
 
 module "s3" {

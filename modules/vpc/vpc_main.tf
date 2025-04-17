@@ -32,11 +32,6 @@ resource "aws_route_table" "public_subnet_route" {
     gateway_id = aws_internet_gateway.main_vpc_igw.id
   }
 
-  route {
-    cidr_block = var.vpc_pub_sub_cidr
-    gateway_id = "local"
-  }
-
   tags = {
     Name = "public_subnet_route"
   }

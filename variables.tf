@@ -8,3 +8,8 @@ variable "s3_bucket_name" {
   description = "Name of the S3 bucket"
   type        = string
 }
+
+variable "ec2_ami" {
+  description = "AMI ID for ec2"
+  type        = string
+}

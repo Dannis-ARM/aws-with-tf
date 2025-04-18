@@ -1,5 +1,11 @@
 resource "aws_vpc" "main_vpc" {
   cidr_block = var.vpc_cidr
+  enable_dns_hostnames = true
+  enable_dns_support = true
+
+  tags = {
+    Name = "main_vpc"
+  }
 }
 
 # Create a public subnet
@@ -53,7 +59,7 @@ resource "aws_security_group" "ssh_sg" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["101.93.3.113/32"] # Replace <YOUR_IP> with your actual IP address
+    cidr_blocks = ["${var.my_public_ip}/32"]
   }
 
   egress {

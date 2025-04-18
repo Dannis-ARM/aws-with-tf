@@ -7,6 +7,7 @@ resource "aws_instance" "general_ec2" {
 
   metadata_options {
     http_tokens = "required"
+    http_endpoint = "enabled"
   }
 
   tags = {
@@ -20,4 +21,8 @@ output "instance_id" {
 
 output "instance_public_ip" {
   value = aws_instance.general_ec2.public_ip
+}
+
+output "instance_public_dns" {
+  value = aws_instance.general_ec2.public_dns  # 添加输出公共 DNS 名称
 }

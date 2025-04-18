@@ -4,6 +4,7 @@ resource "aws_instance" "general_ec2" {
   subnet_id     = var.subnet_id
   security_groups = [var.vpc_ssh_sg_id]
   associate_public_ip_address = true
+  key_name      = aws_key_pair.nb-keypair.key_name
 
   metadata_options {
     http_tokens = "required"
@@ -25,4 +26,9 @@ output "instance_public_ip" {
 
 output "instance_public_dns" {
   value = aws_instance.general_ec2.public_dns  # 添加输出公共 DNS 名称
+}
+
+output "ssh_command" {
+  value     = "ssh -i ${path.root}${var.ec2_key_name}.pem ec2-user@${aws_instance.general_ec2.public_dns}"
+  sensitive = true
 }

@@ -24,4 +24,3 @@ vpc_pub_sub_cidr = "10.0.1.0/24"
 s3_bucket_name = "general-bucket-462096170731"
 ec2_ami = "ami-0c403204e8d09eca0"
 ```
-

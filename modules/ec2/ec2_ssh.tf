@@ -1,17 +1,15 @@
-# Generate an RSA private key
-resource "tls_private_key" "nb-keypair" {
-  algorithm = "RSA"
-  rsa_bits  = 2048
+# Read the existing private key from a file in the user's profile directory (Windows compatible)
+data "local_file" "existing_private_key" {
+  filename = "${pathexpand("~")}\\.ssh\\${var.ec2_key_name}"
 }
 
-# Save the private key to a local file
-resource "local_file" "private_key" {
-  content  = tls_private_key.nb-keypair.private_key_pem
-  filename = "${path.root}/${var.ec2_key_name}.pem"
+# Extract the public key from the existing private key
+data "tls_public_key" "existing_public_key" {
+  private_key_pem = data.local_file.existing_private_key.content
 }
 
-# Create an AWS Key Pair using the generated public key
-resource "aws_key_pair" "nb-keypair" {
+# Create an AWS Key Pair using the extracted public key
+resource "aws_key_pair" "ec2-keypair" {
   key_name   = var.ec2_key_name
-  public_key = tls_private_key.nb-keypair.public_key_openssh
+  public_key = data.tls_public_key.existing_public_key.public_key_openssh
 }

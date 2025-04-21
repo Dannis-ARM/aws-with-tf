@@ -15,6 +15,7 @@ module "ec2" {
   subnet_id     = module.vpc.public_subnet_id
   vpc_ssh_sg_id = module.vpc.vpc_ssh_sg_id
   ec2_ami       = var.ec2_ami
+  ec2_key_name  = var.ec2_key_name
 }
 
 module "s3" {

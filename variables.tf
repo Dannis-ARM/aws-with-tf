@@ -16,3 +16,8 @@ variable "vpc_pub_sub_cidr" {
   description = "CIDR block for the VPC"
   type        = string
 }
+
+variable "ec2_key_name" {
+  description = "The name of the AWS Key Pair to use"
+  type        = string
+}

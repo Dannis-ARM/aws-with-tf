@@ -21,5 +21,4 @@ variable "vpc_ssh_sg_id" {
 variable "ec2_key_name" {
   description = "The name of the AWS Key Pair to use"
   type        = string
-  default     = "nb-key-pair"
 }

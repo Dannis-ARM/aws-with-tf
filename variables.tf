@@ -21,3 +21,9 @@ variable "ec2_key_name" {
   description = "The name of the AWS Key Pair to use"
   type        = string
 }
+
+variable "aws_region" {
+  description = "AWS region to deploy resources"
+  type        = string
+  default     = "us-west-1"
+}

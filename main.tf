@@ -27,5 +27,7 @@ module "ecs" {
   ecs_vpc_id     = module.vpc.vpc_id
   ecs_subnet_id  = module.vpc.public_subnet_id
   ecs_subnet_ids = module.vpc.vpc_subnet_ids
+  my_public_ip   = module.scripts.my_public_ip
+  aws_region     = var.aws_region
 }
 

@@ -13,7 +13,7 @@ variable "ec2_ami" {
   type        = string
 }
 
-variable "vpc_ssh_sg_id" {
+variable "ec2_sg_id" {
   description = "ID of the security group"
   type        = string
 }

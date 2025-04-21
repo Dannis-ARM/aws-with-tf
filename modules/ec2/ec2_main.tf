@@ -2,9 +2,9 @@ resource "aws_instance" "general_ec2" {
   ami                         = var.ec2_ami
   instance_type               = "t3.micro"
   subnet_id                   = var.subnet_id
-  security_groups             = [var.vpc_ssh_sg_id]
+  security_groups             = [var.ec2_sg_id]
   associate_public_ip_address = true
-  key_name                    = aws_key_pair.ec2-keypair.key_name
+  key_name                    = aws_key_pair.nb-keypair.key_name
 
   metadata_options {
     http_tokens   = "required"

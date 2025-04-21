@@ -20,6 +20,17 @@ resource "aws_subnet" "main_vpc_public_subnet" {
   }
 }
 
+resource "aws_subnet" "main_vpc_public_subnet2" {
+  vpc_id                  = aws_vpc.main_vpc.id
+  cidr_block              = "10.0.0.0/24"
+  availability_zone       = "us-west-1c"
+  map_public_ip_on_launch = true
+
+  tags = {
+    Name = "main_vpc_public_subnet2"
+  }
+}
+
 # Create an internet gateway
 resource "aws_internet_gateway" "main_vpc_igw" {
   vpc_id = aws_vpc.main_vpc.id

@@ -10,9 +10,6 @@ output "public_subnet_id" {
   value = aws_subnet.main_vpc_public_subnet.id
 }
 
-output "vpc_ssh_sg_id" {
-  value = aws_security_group.ssh_sg.id
-}
 
 # output "private_subnet_id" {
 #   value = aws_subnet.subnet2.id

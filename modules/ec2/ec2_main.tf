@@ -2,7 +2,7 @@ resource "aws_instance" "general_ec2" {
   ami                         = var.ec2_ami
   instance_type               = "t3.micro"
   subnet_id                   = var.subnet_id
-  security_groups             = [var.ec2_sg_id]
+  security_groups             = [aws_security_group.general_ec2_sg.id]
   associate_public_ip_address = true
   key_name                    = aws_key_pair.ec2-keypair.key_name
 
@@ -16,19 +16,34 @@ resource "aws_instance" "general_ec2" {
   }
 }
 
-output "instance_id" {
-  value = aws_instance.general_ec2.id
-}
+# Create a security group allow ssh for my host only
+resource "aws_security_group" "general_ec2_sg" {
+  name        = "ec2-ssh-sg"
+  description = "Security group to allow SSH access from my host only"
+  vpc_id      = var.vpc_id
 
-output "instance_public_ip" {
-  value = aws_instance.general_ec2.public_ip
-}
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["${var.my_public_ip}/32"]
+  }
 
-output "instance_public_dns" {
-  value = aws_instance.general_ec2.public_dns # 添加输出公共 DNS 名称
-}
+  ingress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["${var.my_public_ip}/32"]
+  }
 
-output "ssh_command" {
-  value     = "ssh -i ${pathexpand("~/")}\\.ssh\\${var.ec2_key_name} ec2-user@${aws_instance.general_ec2.public_dns}"
-  sensitive = true
+  egress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags = {
+    Name = "ec2-ssh-sg"
+  }
 }

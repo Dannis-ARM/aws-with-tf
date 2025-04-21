@@ -88,6 +88,9 @@ resource "aws_ecs_service" "example" {
 }
 
 # Security Group
+data "aws_vpc" "ecs_vpc" {
+  id = var.ecs_vpc_id
+}
 resource "aws_security_group" "example" {
   name        = "example-sg"
   description = "Allow HTTP access"
@@ -98,6 +101,13 @@ resource "aws_security_group" "example" {
     to_port     = 80
     protocol    = "tcp"
     cidr_blocks = ["${var.my_public_ip}/32"] # Replace with your public IP
+  }
+
+  ingress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = [data.aws_vpc.ecs_vpc.cidr_block] # Allow access from the VPC CIDR block
   }
 
   egress {

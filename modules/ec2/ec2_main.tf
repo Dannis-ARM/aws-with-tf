@@ -19,8 +19,15 @@ resource "aws_instance" "general_ec2" {
 # Create a security group allow ssh for my host only
 resource "aws_security_group" "general_ec2_sg" {
   name        = "ec2-ssh-sg"
-  description = "Security group to allow SSH access from my host only"
+  description = "Security group to allow all traffic from my IP"
   vpc_id      = var.vpc_id
+
+  ingress {
+    from_port   = 0
+    to_port     = 0
+    protocol    = "-1"
+    cidr_blocks = ["${var.my_public_ip}/32"]
+  }
 
   ingress {
     from_port   = 22

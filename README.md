@@ -1,6 +1,7 @@
 # Project Description
 This is project aws-with-tf
 
+### For Windows
 # Pre-requista
 :Install Aws Cli
 set HTTPS_PROXY=http://localhost:7890
@@ -8,6 +9,13 @@ msiexec.exe /i https://awscli.amazonaws.com/AWSCLIV2.msi /qn
 
 Install Terraform
 Find 386 version from https://developer.hashicorp.com/terraform/install
+
+### For Linux 
+```bash
+sudo yum install -y yum-utils shadow-utils
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+sudo yum -y install terraform
+```
 
 # Deployment Guide 
 

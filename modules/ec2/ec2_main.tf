@@ -4,7 +4,7 @@ resource "aws_instance" "general_ec2" {
   subnet_id                   = var.subnet_id
   security_groups             = [var.ec2_sg_id]
   associate_public_ip_address = true
-  key_name                    = aws_key_pair.nb-keypair.key_name
+  key_name                    = aws_key_pair.ec2-keypair.key_name
 
   metadata_options {
     http_tokens   = "required"
